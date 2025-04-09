@@ -11,5 +11,24 @@ echo "utilities using the package manager."
 echo ""
 read -p "Press Enter to continue." </dev/tty
 
-## Package Manager
+## Nala Package Manager
 sudo apt install nala -y
+
+## Nix Package Manager
+sudo nala install nix -y
+sudo usermod -aG nix-users "$USER"
+nix-channel --add https://nixos.org/channels/nixpkgs-24.11 nixpkgs
+nix-channel --update nixpkgs
+
+## Install Home Manager Config
+mkdir -p "$HOME/.config"
+nix-shell -p git --run\
+  git clone\
+    https://github.com/TressaDanvers/home-manager.git\
+    "$HOME/.config/home-manager"
+nix-shell -p home-manager --run\
+  home-manager switch --flake "$HOME/.config/home-manager/#default"\
+    --extra-experimental-features "nix-command flakes" -b bak
+. "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+home-manager switch
+exec bash

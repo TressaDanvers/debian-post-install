@@ -20,4 +20,4 @@ mv "$HOME/.config/home-manager/.git.bak" "$HOME/.config/home-manager/.git"
 nix-shell -p home-manager --run\
   "home-manager switch"
 
-exec bash
+exec su --preserve-environment --login tressa

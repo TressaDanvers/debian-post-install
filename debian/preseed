@@ -7,7 +7,7 @@ d-i keyboard-configuration/xkb-keymap select us
 ## Network configuration
 d-i netcfg/enable boolean true
 d-i netcfg/choose_interface select auto
-d-i netcfg/get_hostname string unassigned-hostname
+d-i netcfg/get_hostname string debian
 d-i netcfg/get_domain string unassigned-domain
 d-i netcfg/wireless_wep string
 d-i hw-detect/load_firmware boolean true
@@ -66,7 +66,7 @@ d-i apt-setup/multiarch string i386
 
 ## Package selection
 d-i pkgsel/run_tasksel boolean false
-d-i pkgsel/include string curl
+d-i pkgsel/include string curl dbus
 d-i pkgsel/upgrade select safe-upgrade
 popularity-contest popularity-contest/participate boolean false
 

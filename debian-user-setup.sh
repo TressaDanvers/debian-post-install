@@ -17,4 +17,7 @@ nix-shell -p home-manager --run\
 
 mv "$HOME/.config/home-manager/.git.bak" "$HOME/.config/home-manager/.git"
 
-logout
+nix-shell -p home-manager --run\
+  "home-manager switch"
+
+exec bash

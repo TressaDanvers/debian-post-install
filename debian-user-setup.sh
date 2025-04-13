@@ -13,10 +13,8 @@ nix-shell -p git --run\
 mv "$HOME/.config/home-manager/.git" "$HOME/.config/home-manager/.git.bak"
 
 nix-shell -p home-manager --run\
-  "home-manager switch --flake \"$HOME/.config/home-manager/#$USER\" --extra-experimental-features \"nix-command flakes\" -b bak"
+  "home-manager switch --flake \"$HOME/.config/home-manager/#debian-minimum\" --extra-experimental-features \"nix-command flakes\" -b bak"
 
 mv "$HOME/.config/home-manager/.git.bak" "$HOME/.config/home-manager/.git"
 
-nix-shell -p home-manager --run "home-manager switch"
-
-exec bash
+home-manager switch

@@ -7,17 +7,10 @@ nix-channel --update nixpkgs
 ## Install Home Manager Config
 mkdir -p "$HOME/.config"
 
-nix-shell -p git --run\
-  "git clone https://github.com/TressaDanvers/home-manager.git \"$HOME/.config/home-manager\""
+nix-shell -p git home-manager --run "
+  git clone https://github.com/TressaDanvers/home-manager.git \"$HOME/.config/home-manager\";
+  home-manager switch --flake \"$HOME/.config/home-manager/#$USER\" --extra-experimental-features \"nix-command flakes\" -b bak;
+  home-manager switch;
+"
 
-mv "$HOME/.config/home-manager/.git" "$HOME/.config/home-manager/.git.bak"
-
-nix-shell -p home-manager --run\
-  "home-manager switch --flake \"$HOME/.config/home-manager/#$USER\" --extra-experimental-features \"nix-command flakes\" -b bak"
-
-mv "$HOME/.config/home-manager/.git.bak" "$HOME/.config/home-manager/.git"
-
-nix-shell -p home-manager --run\
-  "home-manager switch"
-
-exec su --preserve-environment --login tressa
+exec su --login tressa
